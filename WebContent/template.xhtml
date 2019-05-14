@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui" > 
+<h:head>
+	<meta content="text/html; charset=ISO-88591" http-equiv="Content-Type" />
+	<title>#{msgs.titulo}</title>
+	
+		<script type="text/javascript">
+		function mascara(o,f){ 
+			v_obj=o 
+			v_fun=f 
+			setTimeout("execmascara()",1) 
+		} 
+
+		function execmascara(){ 
+			v_obj.value=v_fun(v_obj.value) 
+		} 
+
+		function moeda(v){ 
+			v=v.replace(/\D/g,""); // permite digitar apenas numero 
+			v=v.replace(/(\d{1})(\d{15})$/,"$1.$2") // coloca ponto antes dos ultimos digitos 
+			v=v.replace(/(\d{1})(\d{11})$/,"$1.$2") // coloca ponto antes dos ultimos 11 digitos 
+			v=v.replace(/(\d{1})(\d{8})$/,"$1.$2") // coloca ponto antes dos ultimos 8 digitos 
+			v=v.replace(/(\d{1})(\d{5})$/,"$1.$2") // coloca ponto antes dos ultimos 5 digitos 
+			v=v.replace(/(\d{1})(\d{1,2})$/,"$1,$2") // coloca virgula antes dos ultimos 2 digitos 
+			return "R$" + v ; 
+		}
+		
+		
+		</script>
+
+ 		
+</h:head>
+
+<h:body>
+
+	<h:form id="form" prependId="false">
+
+		<ui:insert name="header">
+
+			<p:menubar autoDisplay="true">
+				<p:menuitem>
+					<p:graphicImage library="images" name="header.jpg" height="10%"
+						width="100%" />
+				</p:menuitem>
+				
+				<p:menuitem value="#{msgs.paginaInicial}"
+					url="index.jsf" style="margin-left: 22px;" />
+
+				<p:menuitem value="#{msgs.cadastro}"
+					url="cadastroUsuario.jsf"
+					style="margin-left: 22px;" />		
+								
+				<p:menuitem value="#{msgs.cadastroPedido}"
+					url="cadastroPedido.jsf"
+					style="margin-left: 22px;" />
+					
+				<p:menuitem value="#{msgs.quemSomos}" url="#"
+					style="margin-left: 22px;" />
+					
+				<p:menuitem value="#{msgs.qualObjetivo}" url="#"
+					style="margin-left: 22px;" />
+					
+				<p:menuitem value="#{sessaoMB.client.name}"/>
+
+			</p:menubar>
+		</ui:insert>
+
+
+
+
+		
+		<ui:insert name="header-login">
+			<p:panelGrid columns="5" rendered="#{sessaoMB.isLogado()}">
+
+				<h:outputLabel value="#{msgs.login}" style=" font-size: 15px;" />
+				<h:inputText />
+				<h:outputLabel value="#{msgs.password}" style=" font-size: 15px;" />
+				<h:inputSecret />
+				<p:commandButton value="#{msgs.entrar}" />
+			</p:panelGrid>
+
+			<ui:remove>
+				<!-- FIM TRECHO LOGIN -->
+			</ui:remove>
+
+
+		</ui:insert>
+		<ui:insert name="body">
+			<br></br>
+		
+		
+		Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos. Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker.
+		
+		
+		Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos. Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker.
+		
+		
+		Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos. Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker.
+		
+		
+		Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos. Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker.
+		
+		</ui:insert>
+		
+		<ui:insert name="footer">
+						
+			
+		</ui:insert>
+
+	</h:form>
+</h:body>
+</html>

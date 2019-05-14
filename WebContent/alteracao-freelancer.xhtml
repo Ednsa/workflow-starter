@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="template.xhtml">
+
+	<ui:define name="body">
+	
+	<p:growl/>
+		
+	<br/>
+	
+	<p:panel header="#{msgs.tituloPanelAlteracaoFreelancer}" style="width:100%;" >
+			<p:panelGrid columns="2" style="width:100%;">
+			
+				<h:outputLabel for="nome" value="#{msgs.nome}" />
+				<p:inputText id="nome" value="#{freelancerMB.freelancer.nome}" />
+
+				<h:outputLabel for="sobrenome" value="#{msgs.sobreNome}" />
+				<p:inputText id="sobrenome"
+					value="#{freelancerMB.freelancer.sobreNome}" />
+
+				<h:outputLabel for="login" value="#{msgs.login}" />
+				<p:inputText id="login" value="#{freelancerMB.freelancer.login}" />
+
+				<p:outputLabel for="senha" value="#{msgs.senha}" />
+				<p:password id="senha" value="#{freelancerMB.freelancer.senha}" />
+
+				<h:outputLabel for="email" value="#{msgs.email}" />
+				<p:inputText id="email" value="#{freelancerMB.freelancer.email}" />
+
+				<h:outputLabel for="datanascimento" value="#{msgs.dataNascimento}" />
+				<p:calendar id="datanascimento"
+					value="#{freelancerMB.freelancer.dataNasc}" pattern="dd/MM/yyyy" />
+
+				<h:outputLabel for="numTel" value="#{msgs.telefoneResidencial}" />
+				<p:inputText id="numTel" value="#{freelancerMB.freelancer.numTel}" />
+
+				<h:outputLabel for="numCel" value="#{msgs.telefoneMovel}" />
+				<p:inputText id="numCel" value="#{freelancerMB.freelancer.numCel}" />
+
+				<h:outputLabel for="cpf" value="#{msgs.cpf}" />
+				<p:inputMask mask="999.999.999-99" id="cpf"
+					value="#{freelancerMB.freelancer.cpf}" />
+
+
+
+				<h:outputLabel value="#{msgs.habilidades}" />
+				
+		
+				<p:selectCheckboxMenu value="#{freelancerMB.tiposHabilidadeSelect}" converter="habilidade-converter">
+					<f:selectItems value="#{freelancerMB.tiposHabilidade}" var="habilidade"   
+						itemlabel="#{habilidade.nome}" itemvalue="#{freelancerMB.freelancer.habilidades}" />
+				</p:selectCheckboxMenu>
+				
+
+				<p:commandButton action="#{freelancerMB.salvar}" icon="ui-icon-disk"
+					value="#{msgs.salvar}" update="@form" />
+					
+					
+
+
+			</p:panelGrid>
+		</p:panel>
+	
+	
+	
+	
+	</ui:define>
+	
+	<ui:insert name="footer"/>	
+
+	
+</ui:composition>
+</html>

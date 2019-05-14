@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="template.xhtml">
+	
+	<ui:define name="body">
+
+		<p:growl />
+
+		<br />
+		<p:panel header="#{msgs.tituloPanelCadastro}"
+			style="width:100%;">
+			<p:panelGrid columns="2" style="width:100%;">
+
+				<h:outputLabel for="name" value="#{msgs.name}" />
+				<p:inputText id="name" value="#{clientMB.client.name}" />
+
+				<h:outputLabel for="lastName" value="#{msgs.lastName}" />
+				<p:inputText id="lastName" value="#{clientMB.client.lastName}" />
+
+				<p:outputLabel for="password" value="#{msgs.password}" />
+				<p:password id="password" value="#{clientMB.client.password}" />
+
+				<h:outputText value="Email : " />
+				<h:inputText id="email" value="#{clientMB.client.email}" validatorMessage="Email invalido! !">
+				 <f:validateRegex pattern="[\w'+-]+(\.[\w'+-]+)*@\w+([-.]\w+)*\.\w{2,24}"></f:validateRegex>
+				</h:inputText>
+				 
+				 
+				<h:outputLabel for="dateBirthday" value="#{msgs.dateBirthday}" />
+				<p:calendar id="dateBirthday" value="#{clientMB.client.birthDate}"
+					pattern="dd/MM/yyyy" />
+
+				<h:outputLabel for="numTel" value="#{msgs.telephone}" />
+				<p:inputMask id="numTel" mask="(99)9999-9999" value="#{clientMB.telephone.telephone}" />
+
+				<h:outputLabel for="numCel" value="#{msgs.cellphone}" />
+				<p:inputMask id="numCel"  mask="(99)99999-9999" value="#{clientMB.cellphone.telephone}" />
+
+				<h:outputLabel for="cpf" value="#{msgs.cpf}" />
+				<p:inputMask id="cpf" mask="999.999.999-99" value="#{clientMB.client.cpf}" />
+
+
+
+				<h:outputLabel value="#{msgs.skill}" />
+
+
+				<p:selectCheckboxMenu value="#{clientMB.skillsSelected}"
+					converter="skill-converter">
+					<f:selectItems value="#{clientMB.skill}" var="skill"
+						itemlabel="#{skill.name}" itemvalue="#{clientMB.client.skills}" />
+				</p:selectCheckboxMenu>
+
+
+				<p:commandButton action="#{clientMB.save}" icon="ui-icon-disk"
+					value="#{msgs.save}" update="@form" />
+
+
+
+			</p:panelGrid>
+		</p:panel>
+
+		<h:form id="form1">
+			<h:panelGrid columns="3">
+				<f:facet name="header">
+					<h:outputText value="::Alterar Cadastro::" />
+					<br />
+					<br />
+				</f:facet>
+				<h:outputText value="ID" />
+				<h:inputText id="id" value="#{clientMB.client.id}"
+					var="id" />
+			</h:panelGrid>
+
+
+			<h:commandButton value="Confirmar"
+				actionListener="#{clientMB.acaoEditar}" update="@form" />
+			<h:commandButton value="Limpar" type="reset" />
+			<h:commandLink value="Cancelar" immediate="true" />
+
+		</h:form>
+
+
+	</ui:define>
+
+	<ui:insert name="footer" />
+
+
+</ui:composition>
+</html>
