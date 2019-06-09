@@ -1,11 +1,18 @@
 package controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 
+import org.jasypt.util.text.BasicTextEncryptor;
+import org.omnifaces.util.Messages;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import model.dao.ClientDAO;
@@ -27,7 +34,6 @@ public class LoginMB implements Serializable {
 	private String cpf;
 	private String senha;
 	
-	
 	public SessaoMB getSessao() {
 		return sessao;
 	}
@@ -38,52 +44,74 @@ public class LoginMB implements Serializable {
 
 
 
-	public String acaoAutenticar() {
-		client = dao.lerPorCPF(cpf);
-		if (this.client != null) {//achou cliente mas a senha está inválida
-			if (!client.getPassword().equals(senha)) {
+	public String actionAuth() throws IOException {
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();	
+		client = dao.loadByCPF(cpf);
+		if (this.client != null) {//a
+			if (!client.getPassword().equals(Encrypt.encriptografar(senha))) {
 				//ok
 				client = null;
-				System.out.println("Usuario não encontrado, ou senha inválida");
+				//Usuario nao encontrado ou senha invï¿½lida 
+				FacesContext.getCurrentInstance().addMessage("formLogin", new FacesMessage("Cpf nao encontrado ou senha invalida"));
 			} else {
-				sessao.setClient(client);
-				
-				System.out.println("Autenticado...");
-				return "index?faces-redirect=true?";
-
+				//usuario encontrado e senha ok
+				sessao.setClient(client);	
+				Messages.addFlashGlobalInfo("Login realizado com sucesso!");
+				 ec.redirect(ec.getRequestContextPath() + "/index.jsf");
+				 return "";
 			}
 		} else {
-			System.out.println("...");
+			FacesContext.getCurrentInstance().addMessage("formLogin", new FacesMessage("Cpf nao encontrado ou senha invalida"));
 		}
-		return "/paginas/cidadao/abc.jsf";
+		return "abc.jsf";
 
 //		 else {
 //			FacesContext contexto = FacesContext.getCurrentInstance();
-//			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário ou Senha Incorreta", null);
+//			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuï¿½rio ou Senha Incorreta", null);
 //			FacesContext.getCurrentInstance().addMessage("usuario", msg);
 //
 //			return "";
 //		}
 	}
 
-	public String home() {
-		return "/paginas/cidadao/home.jsf?faces-redirect=true";
-	}
-
+	
 	/**
+	 * @throws ServletException 
+	 * @throws IOException 
 	 * 
 	 */
-	public String acaoLogout() {
+//	public String actionLogout() throws ServletException, IOException {
+//
+//		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+//		 
+//		HttpServletRequest request = (HttpServletRequest) ec.getRequest();
+//		 
+//		// Log Out of the Session
+//		request.logout();
+//		 
+//		ec.invalidateSession();
+//		ec.getSessionMap().clear();
+//		 
+//		//ec.redirect(ec.getRequestContextPath() + "/index.jsf");
+//		return "boots.jsf";
+//
+//	}
 
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-
-		// encerrar a sessão atual
-		session.invalidate();
-
-		return "/paginas/naoAutenticado/index.jsf?faces-redirect=true";
+	public String logout(){
+	    System.out.println("Entrou no logout ");
+		
+		try{
+	        FacesContext facesContext = FacesContext.getCurrentInstance();  
+	        ExternalContext ex = facesContext.getExternalContext();  
+	        ex.invalidateSession();
+	        return "/notAuthenticated/login.jsf?faces-redirect=true"; 
+	    }catch(Exception e){
+	        return "error";
+	    }
 	}
-
+	
+	
+	
 	public ClientDAO getDao() {
 		return dao;
 	}
@@ -103,6 +131,7 @@ public class LoginMB implements Serializable {
 	public String getCpf() {
 		return cpf;
 	}
+
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;

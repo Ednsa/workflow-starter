@@ -8,9 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import org.omnifaces.util.Messages;
+
 import model.Client;
 
-@Named
 public class ClientDAO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -18,8 +19,7 @@ public class ClientDAO implements Serializable {
 	EntityManager em = JPAUtil.getEntityManager();
 
 	public void save(Client client) {
-		//verificar se ja existe 
-		
+			
 		
 		em.getTransaction().begin();
 
@@ -31,12 +31,10 @@ public class ClientDAO implements Serializable {
 
 	}
 
-	// METODO NAO ESTA SENDO UTILIZADO POR ENQUANTO, FUTURAMENTE DEVERA SER
-	// IMPLEMENTADO NA TELA DE UM ADMIN POR EXEMPLO
+
 	@SuppressWarnings("unchecked")
 	public List<Client> listAll() {
-		// refatorar este trecho, verificar se ha a necessidade de instanciar novamente
-		// entitymanager
+
 		EntityManager entitymanager = JPAUtil.getEntityManager();
 
 		Query query = entitymanager.createQuery("from Client");
@@ -44,13 +42,12 @@ public class ClientDAO implements Serializable {
 		return query.getResultList();
 	}
 
-	// CARREGAR UM FREELANCER DO BANCO
 	public Client loadById(Integer id) {
 		return em.find(Client.class, id);
 
 	}
 
-	public Client lerPorCPF(String cpf) {
+	public Client loadByCPF(String cpf) {
 		try {
 			String jpql = "from Client u where u.cpf= :cpf";
 
@@ -62,7 +59,8 @@ public class ClientDAO implements Serializable {
 			return (Client) consult.getSingleResult();
 	
 		} catch (Exception e) {
-			e.printStackTrace();
+
+			Messages.addFlashGlobalInfo("Cpf nao encontrado ou senha invalida"); 
 			return null;
 		}
 	}

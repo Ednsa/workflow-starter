@@ -1,58 +1,86 @@
 package controller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.omnifaces.cdi.ViewScoped;
+import org.omnifaces.util.Messages;
 
 import model.Client;
 import model.OrderService;
 import model.Skill;
-import model.Telephone;
 import model.dao.ClientDAO;
 import model.dao.OrderServiceDAO;
 import model.dao.SkillDAO;
 
-@ManagedBean(name = "orderServiceMB")
-@RequestScoped
-public class OrderServiceMB {
+@Named
+@ViewScoped
+public class OrderServiceMB implements Serializable {
 
-	// relations
+	private static final long serialVersionUID = 1L;
 	protected SkillDAO skillDAO = new SkillDAO();
 	private ClientDAO clientDAO = new ClientDAO();
-	private Client client = new Client();
 	private List<Skill> skill = new ArrayList<>();
 	private List<Skill> skillsSelected = new ArrayList<>();
+	private List<OrderService> orders = new ArrayList<>();
 	private OrderService orderService = new OrderService();
 	private OrderServiceDAO orderServiceDAO = new OrderServiceDAO();
+	private Client client = new Client();
 
-	// vars
-	private Integer idClient;
-	
-	// acess methods
+	@Inject
+	private SessaoMB sessaoMB;
 
-
-	// constructor
-	public OrderServiceMB() {
-		skill = skillDAO.listAll(); 
+	@PostConstruct
+	public void init() {
+		orders = orderServiceDAO.listAll();
 	}
+
+	public String save() {
+		client = sessaoMB.getClient();
+		orderService.setClient(client);
+		// orderService.setClientFreelancer(clientFreelancer);
+		orderService.setSkills(skillsSelected);
+		orderServiceDAO.save(orderService);
+		Messages.addFlashGlobalInfo("Pedido salvo com sucesso!");
+		return "cadastroPedido?faces-redirect=true";
+	}
+
+
+	public String saveFreelancer() {
+		System.out.println("entrouu");
+//		client = sessaoMB.getClient();
+//		orderService.setClientFreelancer(client);
+//		client.setOrderServices(Arrays.asList(orderService));
+//		clientDAO.save(client);
+//		orderServiceDAO.save(orderService);
+//		System.out.println("PAssou Aki");
+//		System.out.println(orderService);
+//		System.out.println(client);
+//	
+		return "";
+	}
+	
+	
 
 	// gets and sets
-
-	public Integer getIdClient() {
-		return idClient;
+	public void setSkillDAO(SkillDAO skillDAO) {
+		this.skillDAO = skillDAO;
 	}
 
-	public void setIdClient(Integer idClient) {
-		this.idClient = idClient;
+	public void setClientDAO(ClientDAO clientDAO) {
+		this.clientDAO = clientDAO;
 	}
 
 	public SkillDAO getSkillDAO() {
@@ -83,6 +111,14 @@ public class OrderServiceMB {
 		return skillsSelected;
 	}
 
+	public List<OrderService> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<OrderService> orders) {
+		this.orders = orders;
+	}
+
 	public void setSkillsSelected(List<Skill> skillsSelected) {
 		this.skillsSelected = skillsSelected;
 	}
@@ -102,24 +138,13 @@ public class OrderServiceMB {
 	public void setOrderServiceDAO(OrderServiceDAO orderServiceDAO) {
 		this.orderServiceDAO = orderServiceDAO;
 	}
-	
-	// lista todas ordens de servico
 
-	// salva uma ordem de servico
-	public String save() {
-		
-	
-
-	
-		orderService.setClient(clientDAO.loadById(idClient));
-		// orderService.setClientFreelancer(clientFreelancer);
-		orderService.setSkills(skillsSelected);
-		orderServiceDAO.save(orderService);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Salvo Com Sucesso!"));
-		return "";
-
+	public SessaoMB getSessaoMB() {
+		return sessaoMB;
 	}
-	
-	
+
+	public void setSessaoMB(SessaoMB sessaoMB) {
+		this.sessaoMB = sessaoMB;
+	}
 
 }

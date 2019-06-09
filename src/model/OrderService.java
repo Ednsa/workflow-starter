@@ -19,21 +19,24 @@ import javax.persistence.TemporalType;
 
 @Entity
 public class OrderService implements Serializable {
-	private static final long serialVersionUID = 12345L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long Id;
 
 	private String descriptionOfService;
-	private String valueInitial;;
+	private String valueInitial;
 	private String valueFinal;	
 	@Temporal(TemporalType.DATE)
 	private Date initialDate;
 	@Temporal(TemporalType.DATE)
 	private Date finalDate;
-
+	private String title; 
+	
 	// relations
+
+
 
 	@ManyToMany
 	private List<Skill> skills = new ArrayList<>();
@@ -59,14 +62,14 @@ public class OrderService implements Serializable {
 		this.client = client;
 		this.descriptionOfService = descriptionOfService;
 		this.valueInitial = valueInitial;
-		this.valueFinal = valueFinal;
-		this.initialDate = initialDate;
-		this.finalDate = finalDate;
-	}
-
-	public OrderService() {
-		super();
-	}
+			this.valueFinal = valueFinal;
+			this.initialDate = initialDate;
+			this.finalDate = finalDate;
+		}
+	
+		public OrderService() {
+			super();
+		}
 
 	// gets and sets
 
@@ -92,6 +95,13 @@ public class OrderService implements Serializable {
 
 	public void setId(Long id) {
 		Id = id;
+	}
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public Client getClient() {

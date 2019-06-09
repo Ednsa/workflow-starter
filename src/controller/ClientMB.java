@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +10,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-
+import javax.servlet.ServletResponse;
 
 import org.jasypt.util.text.BasicTextEncryptor;
+import org.omnifaces.util.Messages;
+import org.primefaces.event.FileUploadEvent;
 
+import filters.ControleAcessoFilter;
 import model.Client;
 import model.Skill;
 import model.Telephone;
@@ -21,72 +25,75 @@ import model.dao.SkillDAO;
 
 @ManagedBean
 @ViewScoped
-public class ClientMB implements Serializable{
+public class ClientMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	
-	//vars
+
+	// vars
 	private Client client = new Client();;
 	@Inject
 	private ClientDAO clientDAO = new ClientDAO();
 	private List<Skill> skill = new ArrayList<>();
 	private List<Skill> skillsSelected = null;
-	protected SkillDAO skillDAO = new SkillDAO(); 
-	private Telephone telephone = new Telephone();  
-	private Telephone cellphone = new Telephone(); 
-	private List<Telephone> telephones = new ArrayList<Telephone>(); 
-
-
-	//constructor
-	public ClientMB(){
-		skill = skillDAO.listAll(); 
-		  
-	}
+	protected SkillDAO skillDAO = new SkillDAO();
+	private Telephone telephone = new Telephone();
+	private Telephone cellphone = new Telephone();
+	private List<Telephone> telephones = new ArrayList<Telephone>();
+	ControleAcessoFilter controlFilter = new ControleAcessoFilter();
 
 	
-	//gets and sets 
+	// constructor
+	public ClientMB() {
+		skill = skillDAO.listAll();
+
+	}
+
+	// gets and sets
 
 	public List<Skill> getSkillsSelected() {
 		return skillsSelected;
 	}
-	
 
-	//LISTA TODOS OS FREELANCERS CADASTRADOS
-	public void listAll(){
-	}	
+	// LISTA TODOS OS FREELANCERS CADASTRADOS
+	public void listAll() {
+	}
 	
 	
-	//save one client
-	public String save(){
-//		String cpfFormatted = client.getCpf().replaceAll(".", "").replaceAll("-", ""); 
-//		System.out.println(cpfFormatted);
-		
+	// save one client
+	public String save() {
+
 		telephones.add(telephone);
 		telephones.add(cellphone);
 		client.setTelephones(telephones);
 		client.setSkills(skillsSelected);
 		clientDAO.save(client);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Salvo Com Sucesso!"));
-		return "";
+		Messages.addFlashGlobalInfo("Usuario salvo com sucesso!");
+		return "/../index?faces-redirect=true";
 	}
-	
 
-	
-	// CARREGAR DO BANCO ATRAVÉS DO ID
-	public void acaoEditar() {          
-	    this.client = this.clientDAO.loadById(client.getId()); 
-	    
+	// CARREGAR DO BANCO ATRAVï¿½S DO ID
+	public void acaoEditar() {
+		this.client = this.clientDAO.loadById(client.getId());
+
+	}
+
+	public void upload(FileUploadEvent event) {
+		System.out.println("Chamou o metodo");
 	}
 	
-	public String goIndex(){
+	public String goToIndex() {
+		System.out.println("entrou no goIndex");
 		return "index?faces-redirect=true";
 	}
 
-
-	public String goCadastro(){
-		return "cadastroUsuario?faces-redirect=true";
+	public String goToRegister(){
+	return "/notAuthenticated/cadastroPedido?faces-redirect=true";
 	}
+
+	public String goToRegisterOrder() {
+		return "/authenticated/cadastroPedido?faces-redirect=true";
+	}
+
 //	
 //	
 //	public void validateEmail(FacesContext context, UIComponent toValidate, Object value) {
@@ -95,15 +102,12 @@ public class ClientMB implements Serializable{
 //		if (email.indexOf('@') == -1) {
 //			((UIInput) toValidate).setValid(false);
 //
-//			FacesMessage message = new FacesMessage("Email inválido");
+//			FacesMessage message = new FacesMessage("Email invï¿½lido");
 //			context.addMessage(toValidate.getClientId(context), message);
 //		}
 //	}
 
-	///gets and sets
-	
-
-
+	/// gets and sets
 
 	public Client getClient() {
 		return client;
@@ -168,13 +172,9 @@ public class ClientMB implements Serializable{
 	public void setTelephones(List<Telephone> telephones) {
 		this.telephones = telephones;
 	}
-	
-	
-	
-
 
 //     LIST QUE RECEBE UM getLabel DAS ENUM's CRIADAS FALTA GET E SET
 //	 private List<TipoHabilidade> tipos = Arrays.asList(TipoHabilidade.values()); 
 //	
-	
+
 }

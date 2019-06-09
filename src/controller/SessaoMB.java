@@ -4,12 +4,15 @@ import java.io.Serializable;
 import javax.enterprise.context.*;
 import javax.inject.Named;
 import model.Client;
+import model.OrderService;
 
 @Named
 @SessionScoped
 public class SessaoMB implements Serializable {
 
 	private Client client;
+	private OrderService orderService; 
+	
 
 	private static final long serialVersionUID = 1L;
 	
@@ -21,6 +24,16 @@ public class SessaoMB implements Serializable {
 	public void setClient(Client client) {
 		this.client = client;
 	}
+
+	public OrderService getOrderService() {
+		return orderService;
+	}
+
+	public void setOrderService(OrderService orderService) {
+		this.orderService = orderService;
+	}
+	
+	
 	
 	public boolean isLogado() {
 		if(client == null) {
@@ -31,6 +44,15 @@ public class SessaoMB implements Serializable {
 		}		
 	}
 	
+	public boolean isNotIn() {
+		if (client == null) {
+			return true;
+			
+		}
+		else
+			return false;
+		
+	}
 	
 
 //	public void loginUsuario() {

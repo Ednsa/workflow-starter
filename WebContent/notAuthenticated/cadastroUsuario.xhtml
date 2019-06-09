@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+
+	<meta content="text/html; charset=ISO-88591" http-equiv="Content-Type" />
+	<link rel="stylesheet" type="text/css"
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/style.css" />
+
+
+
+</h:head>
+
+
+<h:body style="padding: 60px">
+	<b:growl />
+	<b:navBar brand="Cadastro" brand-href="#" fixed="top">
+		<b:navbarLinks>
+			<b:navLink value="Inicio" href="../index.jsf" />
+			<b:navLink value="Cadastro de Pedido"
+				href="../authenticated/cadastroPedido.jsf" />
+			<b:navLink value="Pedidos em andamento" href="#" />
+			<b:navLink value="Quem Somos" href="#" />
+	
+		</b:navbarLinks>
+		<b:label class="nameUser"
+			value="Cliente logado : #{sessaoMB.client.name}"
+			style="text-align:left;" />
+	</b:navBar>
+
+
+
+
+	<b:container>
+	
+		<b:jumbotron>
+			<h:form enctype="multipárt/form-data">
+
+
+				<b:panelGrid columns="1">
+
+					<b:inputText label="Nome" value="#{clientMB.client.name}"
+						placeholder="Digite seu Nome  " class="labelName" />
+
+					<b:inputText label="Sobrenome" value="#{clientMB.client.lastName}"
+						placeholder="Digite seu Sobrenome  " class="labelLastName" />
+						
+					<b:inputText label="Cpf"
+						value="#{clientMB.client.cpf}"
+						placeholder="xxx.xxx.xxx-xx" class="labelCpf" />
+
+					<b:inputSecret for="Senha" value="#{clientMB.client.password}"
+						label="Digite sua senha" class="labelPassword"
+						placeholder=" Sua senha deve contar de 8 a 12 caracteres  " />
+					<b:inputSecret label="Confirme sua senha" class="labelPassword"/>
+
+					<b:inputText value="#{clientMB.client.email}"
+						label="Digite seu email :" class="labelEmail"/>
+
+					<b:datepicker value="#{clientMB.client.birthDate}"
+						mode="icon-popup" class="allData"
+						label="Entre com a sua data de nascimento :" />
+
+					<b:inputText label="Telefone Residencial" mask="(99)9999-9999"
+						placeholder="(xx)-xxxxx-xxxx"
+						value="#{clientMB.telephone.telephone}" class="labelTel"/>
+
+					<b:inputText label="Telefone móvel" mask="(99)99999-9999"
+						placeholder="(xx)-xxxxx-xxxx"
+						value="#{clientMB.cellphone.telephone}" class="labelCel"/>
+
+					<h:outputLabel value="Skills" />
+					<b:selectMultiMenu converter="skill-converter">
+						<f:selectItems value="#{clientMB.skill}" var="skill"
+							itemlabel="#{skill.name}" itemvalue="#{clientMB.client.skills}" />
+					</b:selectMultiMenu>
+					
+		
+						
+
+					<b:commandButton action="#{clientMB.save}" id="buttonSave"
+						icon="ui-icon-disk" value="Salvar" update="@form" />
+				
+				</b:panelGrid>	
+
+			</h:form>
+
+		</b:jumbotron>
+	</b:container>
+
+
+</h:body>
+
+
+</html>

@@ -1,0 +1,219 @@
+.teste {
+	background-color: gray;
+}
+
+.cpf {
+	font-family: "arial";
+	color: "red";
+}
+
+.titleService {
+	width: 70%;
+	margin-bottom: 10px;
+}
+
+.buttonSave {
+	margin-top: 8px;
+}
+
+.growlSucess {
+	color: green;
+	background-color: green;
+	width: 1px;
+}
+
+.textLogin {
+	/* 	text-align: center; */
+	/* 	font-family: fantasy; */
+	/* 	color: #0a0f0f; */
+	/* 	font-style: normal; */
+	/* 	font-size: medium; */
+	
+}
+/* .estimatedValue{ */
+/*   } */
+.button {
+	background-color: gray;
+}
+
+.botaoLogout {
+	position: absolute;
+	right: 5px;
+	bottom: 3px;
+	font-family: inherit;
+}
+
+a:hover, a:visited, a:focus, a:active {
+	text-decoration: none;
+	color: gray;
+}
+
+.date {
+	width: 30%;
+}
+
+.valueService {
+	width: 15%;
+}
+
+.alertDate {
+	width: 70%;
+}
+
+.titleService {
+	width: 50%;
+}
+
+.titleHabilities {
+	position: relative;
+}
+
+.descriptionService {
+	width: 600px;
+}
+
+.botaoLogouti {
+
+	position: absolute;
+	right: 5px;
+	bottom: 3px;
+	font-family: inherit;
+	
+	
+}
+
+.allData {
+	width: 55%;
+	margin-left: 14px;
+}
+
+.selectItens {
+	margin-top: 15px;
+}
+
+.labelHabilities {
+	height: 100%;
+	width: 100%;
+	font-family: inherit;
+	font-size: 11px;
+}
+
+.campoDescricaoServico {
+	width: 55%;
+}
+
+.campoCpf {
+	width: 30%;
+}
+
+.campoSenha {
+	width: 30%;
+}
+
+.semBorda tr, .semBorda td, .semBorda {
+	border: none !important;
+}
+
+.nameUser {
+	/* 	font-size: 18px; */
+	/* 	color: gray; */
+	/* 	text-align: right; */
+	/* 	border-style: hidden; */
+	/* 	border-width: 2px; */
+	/* 	border-color: gray; */
+	/* 	margin-top: 5px; */
+	/* 	margin-right: 5px; */
+	/* 	padding-right: 3px; " */
+	/* 	text-align: right; */
+	/* 	position: absolute; */
+	/* 	Right: 3%; */
+	
+}
+
+.labelTitle {
+	/* 	size: 55px; */
+	width: 50%;
+	height: 70%;
+	margin-top: 10px;
+}
+
+.labelTitlei {
+	margin-top: 20px;
+	font-family: inherit;
+}
+
+.labelDesci {
+	margin-top: 10px;
+	width: 70%;
+}
+
+.labelDate {
+	
+}
+
+.labelValuei {
+	
+}
+
+.labelValue {
+	top: -8px;
+	position: relative;
+}
+
+.labelDatei {
+	margin-top: 10px;
+}
+
+/* 	size: 55px; */
+/* 	width: 65%; */
+/* 	height: 120px; */
+.cadastroLink {
+	position: absolute;
+	margin-top: 20px;
+}
+
+.p {
+	font-family: serif;
+	margin-top: 60px;
+}
+
+.news {
+	margin-top: 40px;
+}
+
+.nameUser {
+	right: 80px;
+	top: 30px;
+	position: fixed;
+
+	/* 	font-size: 16px; */
+	/* 	color: gray; */
+	/* 	text-align: right; */
+	/* 	border-style: hidden; */
+	/* 	border-width: 2px; */
+	/* 	border-color: gray; */
+	/* 	margin-top: 5px; */
+	/* 	margin-right: 100px; */
+	/* 	padding-right: 100px; " */
+	/* 	text-align: right; */
+	/* 	position: absolute; */
+	/* 	Right: 3%; */
+}
+
+.botao {
+	text-decoration: none;
+	width: 12px;
+	color: green;
+}
+
+.loginIcon {
+	width: 24px;
+	height: 24px;
+}
+
+.content {
+	height: 100%;
+	width: 100%;
+	font-family: monospace;
+	font-size: large;
+}

@@ -1,0 +1,44 @@
+
+
+<!-- 		<p:fileUpload class="foto" mode="advanced" -->
+<!-- 			fileUploadListener="#{orderServiceMB.upload}" /> -->
+
+implementado logout ; 
+corrigir messages que aparece mediante ajax
+
+
+corrigir valida��o email,valida��o de data futura, valida��o de cpf , confirma��o de senha? 
+
+
+darespa�o das skills para o botao salvar
+
+nao aceitar email invalido e cpf invalido
+
+tirar logout da page de login, tirar cadastro de pedido da page cadastro de usuario e logout
+ 
+botar alt em todas as imagens
+
+botar for nos atributos
+
+botar um link pra eu esqueci minha senha, recupera senha mediante duas perguntas secretas respondidas. /
+
+tratar o cpf qd ja estiver em uso
+
+corrigir nav listarPedido
+ajudas page cadastroUsuario
+
+
+
+botar o javascript em um js
+
+implementar valida��o para a senha 8 a 12 caracteres
+
+consertar o botao de logout quando entra na pagina de pedido
+
+inserir o logout na pagina pedidos em andamentoe quem somos
+
+nao permitir a entrada de usuarios logados na pagina login
+
+setar o clienteFreelancer no pedido
+
+tirar o logout da pagina cadastroUsuario

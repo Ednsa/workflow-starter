@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+<h:head>
+
+
+	<meta content="text/html; charset=ISO-88591" http-equiv="Content-Type" />
+	<link rel="stylesheet" type="text/css"
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/style.css" />
+	<script type="text/javascript">
+		function mascara(o, f) {
+			v_obj = o
+			v_fun = f
+			setTimeout("execmascara()", 1)
+		}
+		function execmascara() {
+			v_obj.value = v_fun(v_obj.value)
+		}
+		function moeda(v) {
+			v = v.replace(/\D/g, ""); // permite digitar apenas numero 
+			v = v.replace(/(\d{1})(\d{15})$/, "$1.$2") // coloca ponto antes dos ultimos digitos 
+			v = v.replace(/(\d{1})(\d{11})$/, "$1.$2") // coloca ponto antes dos ultimos 11 digitos 
+			v = v.replace(/(\d{1})(\d{8})$/, "$1.$2") // coloca ponto antes dos ultimos 8 digitos 
+			v = v.replace(/(\d{1})(\d{5})$/, "$1.$2") // coloca ponto antes dos ultimos 5 digitos 
+			v = v.replace(/(\d{1})(\d{1,2})$/, "$1,$2") // coloca virgula antes dos ultimos 2 digitos 
+			return "R$" + v;
+		}
+	</script>
+
+</h:head>
+<h:body style="padding: 60px">
+	<h:form enctype="multipart/form-data">
+		<b:navBar brand="Cadastro" brand-href="#" fixed="top">
+			<b:navbarLinks>
+				<b:navLink value="Inicio" href="../index.jsf" />
+				<b:navLink value="Pedidos em andamento" href="#" />
+				<b:navLink value="Quem Somos"
+					href="../notAuthenticated/quemSomos.jsf" />
+			</b:navbarLinks>
+			<b:label class="nameUser"
+				value="Cliente logado : #{sessaoMB.client.name}"
+				style="text-align:left;" />
+			<b:navCommandLink rendered="#{sessaoMB.isLogado()}"
+				class="botaoLogout" value="Logout" ajax="false"
+				action="#{loginMB.logout()}" />
+		</b:navBar>
+
+	</h:form>
+	<h:form>
+		<b:container>
+			<b:jumbotron>
+
+
+
+				<b:dataTable value="#{orderServiceMB.orders}" var="order"
+					fixed-header="Pedidos em aberto">
+
+					<b:tab title="#{curso.nome}">
+						<b:panelGrid columns="2" cellpadding="10">
+
+							<h:outputText value="Título " />
+							<h:outputText value="#{order.title}" />
+
+							<h:outputText value="Descrição do serviço  " />
+							<h:outputText value="#{order.descriptionOfService}" />
+
+							<h:outputText value="Valor estimado " />
+							<h:outputText value="#{order.valueInitial}" />
+
+							<h:outputText value="Previsão de Inicio " />
+							<h:outputText value="#{order.initialDate}" />
+
+							<p:commandButton value="TESTE" process="@this"
+								action="#{orderServiceMB.saveFreelancer}">
+								<f:setPropertyActionListener value="order"
+									target="#{orderServiceMB.orderService}" />
+							</p:commandButton>
+
+ 			<t:saveState value="#{orderServiceMB.orders}"/>
+
+						</b:panelGrid>
+					</b:tab>
+				</b:dataTable>
+			</b:jumbotron>
+		</b:container>
+
+	</h:form>
+
+
+
+
+
+</h:body>
+</html>

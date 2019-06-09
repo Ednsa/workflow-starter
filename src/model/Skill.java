@@ -9,6 +9,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "skill")
+
+
 public class Skill {
 
 	@Id
@@ -50,7 +52,7 @@ public class Skill {
 
 	@Override
 	public String toString() {
-		return "Skill [id=" + id + ", name=" + name + "]";
+		return  name;
 	}
 
 	// HASCHCODE DE ID HABILIDADE

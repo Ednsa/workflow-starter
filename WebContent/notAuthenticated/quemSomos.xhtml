@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+<h:head>
+
+	<meta content="text/html; charset=ISO-88591" http-equiv="Content-Type" />
+	<link rel="stylesheet" type="text/css"
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/style.css" />
+
+</h:head>
+
+
+
+
+<h:body style="padding: 60px">
+
+	<b:growl delay="500" />
+	<b:navBar brand="Pagina Inicial" brand-href="../index.jsf" fixed="top">
+		<h:form>
+			<b:navbarLinks>
+				<b:navLink value="Inicio" href="../index.jsf" />
+				<b:navLink value="Cadastro"
+					href="notAuthenticated/cadastroUsuario.jsf"
+					disabled="#{sessaoMB.isLogado()}" />
+				<b:navLink value="Cadastro de Pedido"
+					href="../authenticated/cadastroPedido.jsf" />
+				<b:navLink value="Pedidos em andamento" href="#" />
+				<b:navLink value="Quem Somos" href="#" />
+				<b:navLink value="Entrar" rendered="#{sessaoMB.isNotIn()}"
+					href="notAuthenticated/login.jsf" />
+			</b:navbarLinks>
+			<b:label class="nameUser"
+				value="Cliente logado : #{sessaoMB.client.name}"
+				style="text-align:left;" />
+			<b:navCommandLink rendered="#{sessaoMB.isLogado()}"
+				class="botaoLogout" value="Logout" ajax="false"
+				action="#{loginMB.logout()}" />
+
+
+		</h:form>
+	</b:navBar>
+
+
+	<h:outputLabel class="nameUser"
+		value="Cliente logado : #{sessaoMB.client.name}"
+		style="text-align:left;" />
+
+
+	<b:container>
+		<b:jumbotron>
+
+			<b:carousel id="carrousel"
+				style="padding:1.5625em 0.625em 1.5625em 0.625em ;">
+				<b:carouselItem>
+					<img src="resources/images/b1.jpg" alt="Valladolid" />
+				</b:carouselItem>
+				<b:carouselItem>
+					<img src="resources/images/b2.jpg" alt="Valladolid" />
+				</b:carouselItem>
+			</b:carousel>
+			<p class="p" style="font-size: 20px;">O projeto Workflow foi uma
+				iniciativa criada com intuito de estimular os serviços de TI que
+				possam ser realizados por profissionais que atuam em sua própria
+				residência. Acreditamos no valor que isto pode trazer aos clientes
+				na busca por serviços que indispoem, se deparando por vezes com
+				plataformas pagas ou de pouca credibilidade. Queremos também
+				colaborar no crescimento do profissional que busca uma melhor
+				qualidade de vida e bons ganhos. Buscamos comprometimento e
+				seriedade entre o relacionamento dos nossos clientes com os
+				profissionais atuantes, para isso buscamos sempre registrar o
+				feedback das partes envolvidas, atribuindo uma nota e uma justificativa a
+				todo serviço realizado. Além de tudo isso você ainda não paga nada
+				para utilizar nossos serviços.</p>
+
+		</b:jumbotron>
+
+	</b:container>
+
+</h:body>
+
+</html>
+

@@ -1,14 +1,97 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+<h:head>
 
-<ui:composition template="template.xhtml">
+	<meta content="text/html; charset=ISO-88591" http-equiv="Content-Type" />
+	<link rel="stylesheet" type="text/css"
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/style.css" />
 
-		
-</ui:composition>
+</h:head>
+
+
+
+
+<h:body style="padding: 60px">
+
+	<b:growl delay="500" />
+	<b:navBar brand="Pagina Inicial" brand-href="#" fixed="top">
+		<h:form>
+			<b:navbarLinks>
+				<b:navLink value="Inicio" href="index.jsf" />
+				<b:navLink value="Cadastro"
+					href="notAuthenticated/cadastroUsuario.jsf"
+					disabled="#{sessaoMB.isLogado()}" />
+				<b:navLink value="Cadastrar Servico"
+					href="authenticated/cadastroPedido.jsf" />
+				<b:navLink value="Pedidos em andamento" href="#" />
+				<b:navLink value="Quem Somos" href="notAuthenticated/quemSomos.jsf" />
+				<b:navLink value="Entrar" rendered="#{sessaoMB.isNotIn()}"
+					href="notAuthenticated/login.jsf" />
+			</b:navbarLinks>
+			
+			<b:label class="nameUser"
+				value="Cliente logado : #{sessaoMB.client.name}"
+				style="text-align:left;" />
+			
+			<h:commandLink rendered="#{sessaoMB.isLogado()}"
+				class="botaoLogout" value="Logout" ajax="false"
+				action="#{loginMB.logout}" style="color:#0099cc"/>
+
+
+		</h:form>
+	</b:navBar>
+
+
+
+
+	<b:container>
+		<b:jumbotron>
+
+
+			<b:carousel id="carrousel"
+				style="padding:1.5625em 0.625em 1.5625em 0.625em ;">
+				<b:carouselItem>
+					<img src="resources/images/b1.jpg" alt="Valladolid" />
+				</b:carouselItem>
+				<b:carouselItem>
+					<img src="resources/images/b2.jpg" alt="Valladolid" />
+				</b:carouselItem>
+			</b:carousel>
+
+			<p class="p" style="font-size: 20px;">"Lorem ipsum dolor sit
+				amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+				ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+				nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+				esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+				cupidatat non proident, sunt in culpa qui officia deserunt mollit
+				anim id est laborum."</p>
+
+
+
+			<h1 class="news">Newsletter</h1>
+
+			<p>Cadastre-se para receber novidades em primeira mão</p>
+			<h:form id="formNewsLetter" prependId="false">
+				<b:panelGrid columns="1">
+					<b:inputText label="Nome" placeholder="Digite seu Nome : " />
+					<b:inputText label="Email" placeholder="Digite seu Email : " />
+
+					<b:commandButton value="Confirmar" />
+
+				</b:panelGrid>
+
+			</h:form>
+
+
+		</b:jumbotron>
+	</b:container>
+
+</h:body>
 </html>

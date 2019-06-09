@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.jasypt.util.text.BasicTextEncryptor;
+
+import controller.Encrypt;
+
 @Entity
 @Table(name = "client")
 public class Client implements Serializable {
@@ -29,13 +34,13 @@ public class Client implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
-	
-	
+
 	private String password;
 	private String name;
 	private String lastName;
 	@Temporal(TemporalType.DATE)
 	private Date birthDate;
+	@Column(unique = true)
 	private String cpf;
 	private String email;
 
@@ -51,6 +56,7 @@ public class Client implements Serializable {
 	@Basic(fetch = FetchType.LAZY)
 	@JoinColumn(name = "orderService_fk")
 	private List<OrderService> orderServices;
+	// private BasicTextEncryptor cryptor = new BasicTextEncryptor();
 
 	// constructors
 
@@ -71,15 +77,6 @@ public class Client implements Serializable {
 	}
 
 	// gets and sets
-
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public Integer getId() {
 		return id;
@@ -120,6 +117,22 @@ public class Client implements Serializable {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = Encrypt.encriptografar(password);
+	}
+
+//
+//	public void setCpfFormatted(String cpfNotFormatted) {
+//
+//		cpfNotFormatted.replaceAll(".", "").replaceAll("-", ""); 
+//		cpf =	cpfNotFormatted; 
+//		System.out.println(cpf); 
+//	}
 
 	public String getEmail() {
 		return email;

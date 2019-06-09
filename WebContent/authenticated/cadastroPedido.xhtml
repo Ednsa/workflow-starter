@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+
+	<meta content="text/html; charset=ISO-88591" http-equiv="Content-Type" />
+	<link rel="stylesheet" type="text/css"
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/style.css" />
+	<script type="text/javascript">
+		function mascara(o, f) {
+			v_obj = o
+			v_fun = f
+			setTimeout("execmascara()", 1)
+		}
+		function execmascara() {
+			v_obj.value = v_fun(v_obj.value)
+		}
+		function moeda(v) {
+			v = v.replace(/\D/g, ""); // permite digitar apenas numero 
+			v = v.replace(/(\d{1})(\d{15})$/, "$1.$2") // coloca ponto antes dos ultimos digitos 
+			v = v.replace(/(\d{1})(\d{11})$/, "$1.$2") // coloca ponto antes dos ultimos 11 digitos 
+			v = v.replace(/(\d{1})(\d{8})$/, "$1.$2") // coloca ponto antes dos ultimos 8 digitos 
+			v = v.replace(/(\d{1})(\d{5})$/, "$1.$2") // coloca ponto antes dos ultimos 5 digitos 
+			v = v.replace(/(\d{1})(\d{1,2})$/, "$1,$2") // coloca virgula antes dos ultimos 2 digitos 
+			return "R$" + v;
+		}
+	</script>
+
+</h:head>
+<h:body style="padding: 60px">
+
+
+
+
+
+
+
+	<b:container>
+
+		<b:jumbotron>
+
+			<b:growl />
+
+			<b:form enctype="multipárt/form-data">
+
+				<b:navBar brand="Cadastro de servico" brand-href="#" fixed="top">
+
+					<b:navbarLinks>
+						<b:navLink value="Inicio" href="../index.jsf" />
+						<b:navLink value="Pedidos em andamento" href="#" />
+						<b:navLink value="Quem Somos"
+							href="../notAuthenticated/quemSomos.jsf" />
+						<b:label class="nameUser"
+							value="Cliente logado : #{sessaoMB.client.name}"
+							style="text-align:left;" />´
+					
+			<h:commandLink rendered="#{sessaoMB.isLogado()}" class="botaoLogouti"
+							value="Logout" ajax="false" action="#{loginMB.logout()}"
+							style="color: 
+ #0099cc;" />
+
+					</b:navbarLinks>
+
+				</b:navBar>
+			
+
+				<b:panelGrid columns="1">
+
+					<h:outputText style=" font-variant: small-caps; "
+						value=" Insira um título para o seu serviço " />
+
+					<b:inputText value="#{orderServiceMB.orderService.title}"
+						class="titleService" />
+
+					<h:outputText style=" font-variant: small-caps; "
+						value=" Descreva as necessidades do seu serviço " />
+					<b:inputTextarea class=""
+						value="#{orderServiceMB.orderService.descriptionOfService}" />
+
+					
+					<b:alert severity="warning" class="alertDate" closable="true">Data de inicio é a data tolerável que voce pode aguardar para o inicio da execução do serviço!  <br/> <p:spacer width="32" height="1" />Valor em Média, é o valor que você está disposto a negociar o serviço que necessita!   </b:alert>
+
+					
+					
+					<h:outputText style=" font-variant: small-caps; "
+						value="Insira a data de inicio do serviço" />
+					<b:datepicker value="#{orderServiceMB.orderService.initialDate}"
+						class="date" />
+
+					<h:outputText style=" font-variant: small-caps; "
+						value="Entre com o valor em média esperado para o serviço" />
+					<b:inputText value="#{orderServiceMB.orderService.valueInitial}"
+						onkeypress="mascara(this,moeda)" class="valueService" />
+
+					<h:outputText style=" font-variant: small-caps; "
+						class="titleHabilities"
+						value="Selecione as habilidades necessárias para o serviço" />
+
+					<b:selectMultiMenu converter="skill-converter" 	non-selected-text="Selecione aqui">
+						<f:selectItems value="#{clientMB.skill}" var="skill"
+							itemlabel="#{skill.name}" itemvalue="#{clientMB.client.skills}" />
+					</b:selectMultiMenu>
+
+						
+						
+					<b:commandButton value="Enviar pedido" class="btn btn-primary btn" 
+						style="width:10% heigth:10%; margin-top:10px;"
+						action="#{orderServiceMB.save}" />
+				
+				
+				</b:panelGrid>
+			</b:form>
+		</b:jumbotron>
+	</b:container>
+
+
+</h:body>
+</html>

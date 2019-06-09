@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -7,8 +8,10 @@ import javax.persistence.Query;
 
 import model.Skill;
 
-public class SkillDAO {
+public class SkillDAO implements Serializable {
 
+
+	private static final long serialVersionUID = 1L;
 	EntityManager em = JPAUtil.getEntityManager();
 
 	public void save(Skill skill) {

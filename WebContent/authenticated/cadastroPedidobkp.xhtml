@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+
+
+	<meta content="text/html; charset=ISO-88591" http-equiv="Content-Type" />
+	<link rel="stylesheet" type="text/css"
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/style.css" />
+	<script type="text/javascript">
+		function mascara(o, f) {
+			v_obj = o
+			v_fun = f
+			setTimeout("execmascara()", 1)
+		}
+		function execmascara() {
+			v_obj.value = v_fun(v_obj.value)
+		}
+		function moeda(v) {
+			v = v.replace(/\D/g, ""); // permite digitar apenas numero 
+			v = v.replace(/(\d{1})(\d{15})$/, "$1.$2") // coloca ponto antes dos ultimos digitos 
+			v = v.replace(/(\d{1})(\d{11})$/, "$1.$2") // coloca ponto antes dos ultimos 11 digitos 
+			v = v.replace(/(\d{1})(\d{8})$/, "$1.$2") // coloca ponto antes dos ultimos 8 digitos 
+			v = v.replace(/(\d{1})(\d{5})$/, "$1.$2") // coloca ponto antes dos ultimos 5 digitos 
+			v = v.replace(/(\d{1})(\d{1,2})$/, "$1,$2") // coloca virgula antes dos ultimos 2 digitos 
+			return "R$" + v;
+		}
+	</script>
+
+</h:head>
+<h:body>
+
+
+
+	<b:navBar brand="Cadastro De Servico" brand-href="#" fixed="top">
+		<h:form>
+			<b:navbarLinks>
+				<b:navLink value="Inicio" href="../index.jsf" />
+				<b:navLink value="Pedidos em andamento" href="#" />
+				<b:navLink value="Quem Somos" href="../notAuthenticated/quemSomos.jsf" />
+
+
+			</b:navbarLinks>
+		</h:form>
+
+				<b:label class="nameUser"
+					value="Cliente logado : #{sessaoMB.client.name}"
+					style="text-align:left;" />
+									<b:navLink rendered="#{sessaoMB.isLogado()}" value="Logout"
+					ajax="false" action="# {loginMB.logout()}" />
+	</b:navBar>
+
+	<b:panel title="PanelService" collapsible="false">
+		<b:form>
+			<b:panelGrid columns="1" style="width:100%;">
+
+				<b:label value="Entre com  o titulo do servico" text="Info"
+					severity="info" tiny-screen="one-fourth" class="labelTitlei" />
+
+				<b:inputText class="labelTitle" />
+
+				<b:label value="Descreva de maneira clara o servico que busca.."
+					text="Info" severity="info" tiny-screen="one-fourth" />
+
+				<b:inputTextarea class="labelDesci"
+					value="#{orderServiceMB.orderService.descriptionOfService}" />
+
+				<b:label value="Entre com a data esperada para o inicio do servico "
+					text="Info" severity="info" 
+					class="labelDate" />
+
+				<b:datepicker value="#{orderServiceMB.orderService.initialDate}"
+					mode="icon-popup" class="allData"
+					style=" width:130px; height:30px; margin-top:10px;" />
+			
+				
+				<b:label value="Entre com a data esperada para conclusao do servico "
+					text="Info" severity="info"  />
+				
+
+				<b:datepicker value="#{orderServiceMB.orderService.finalDate}"
+					mode="icon-popup" class="allData"
+					style=" width:130px; height:30px; margin-top:10px;"
+					 />
+		
+			
+				<b:label value="Entre com o valor medio estimado para o servico "
+					text="Info" severity="info" 
+				class="labelValue" />
+			
+				<b:inputTextarea rows="3" col-sm="2"
+					onkeydown="mascara(this,moeda)" style=" width:130px; height:25px; "
+					class="estimatedValue"
+					value="#{orderServiceMB.orderService.valueInitial}">
+					<f:facet name="prepend" class="labelValuei" >
+						<h:outputText value="$"  class="labelValuei" />
+					</f:facet>
+				</b:inputTextarea>
+
+
+
+				<b:label value="Preencha as habilidades que voce considera necessarias para o servico :"
+					class="	" text="Info" severity="info" />
+
+			<p:selectCheckboxMenu value="#{orderServiceMB.skillsSelected}"
+					converter="skill-converter">
+					<f:selectItems value="#{orderServiceMB.skill}" var="skill"
+						itemlabel="#{skill.name}" itemvalue="#{orderServiceMB.skillsSelected}" />
+				</p:selectCheckboxMenu>
+				
+				<b:commandButton action="#{orderServiceMB.save}" icon="ui-icon-disk"
+					style="color:green;" value="Enviar Pedido" update="@form" />
+				<b:messages tooltipPosition="auto bottom" />
+			</b:panelGrid>
+		</b:form>
+
+
+
+
+
+
+	</b:panel>
+
+</h:body>
+</html>

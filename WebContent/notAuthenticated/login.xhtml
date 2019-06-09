@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+<h:head>
+
+	<meta content="text/html; charset=ISO-88591" http-equiv="Content-Type" />
+	<link rel="stylesheet" type="text/css"
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/style.css" />
+	<f:facet name="no-fa">true</f:facet>
+	<h:outputStylesheet
+		library="#{facesContext.externalContext.requestContextPath}/resources/css/"
+		name="font-awesome.min.css"></h:outputStylesheet>
+
+</h:head>
+
+<h:body style="padding: 30px">
+
+	<b:container fluid="true">
+		<b:jumbotron>
+
+			<b:navBar brand="Area de Login" brand-href="#" fixed="top" />
+			<b:icon name="user" class="loginIcon" />
+
+			<h:form id="formLogin" prependId="false"
+				enctype="multipart/form-data">
+						<b:growl/>
+				<b:panelGrid columns="1" cellspacing="6">
+					<b:inputText label="Entre com seu cpf" class="campoCpf"
+						value="#{loginMB.cpf}" required="true"
+						required-message="O campo cpf é obrigatório" />
+
+					<b:inputSecret label="Entre com a sua senha" value="#{loginMB.senha}"
+						class="campoSenha" required-message="O campo é senha obrigatório"
+						required="true" />
+
+					<b:commandButton value="Entrar"
+						action="#{loginMB.actionAuth()}" icon="ui-icon-person"
+						update="@form" style="width:10%; height:10%; "/>
+
+					<b:navLink href="cadastroUsuario.jsf" class="cadastroLink">
+						<b:icon name="glyphicon-pencil" />
+					Clique aqui para se cadastrar
+					</b:navLink>
+
+				</b:panelGrid>
+
+			</h:form>
+		</b:jumbotron>
+	</b:container>
+
+
+<b:growl/>
+</h:body>
+</html>
